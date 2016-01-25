@@ -1,0 +1,60 @@
+Camera {
+	position 20.0 20.0 20.0
+	focus 0.0 0.0 0.0
+	up 0.0 1.0 0.0
+}
+Ortographic {
+	width 30.0
+	height 30.0
+}
+Background {
+	color 100 100 100
+}
+Group {
+	numObjects 9
+	Sphere {
+		center 0.0 0.0 0.0
+		radius 5.0
+		color 200 125 200
+	}
+	Sphere {
+		center +5.0 +5.0 +5.0
+		radius 5.0
+		color 200 0 0
+	}
+	Sphere {
+		center -5.0 +5.0 +5.0
+		radius 5.0
+		color 0 200 0
+	}
+	Sphere {
+		center -5.0 -5.0 +5.0
+		radius 5.0
+		color 0 0 200
+	}
+	Sphere {
+		center +5.0 -5.0 +5.0
+		radius 5.0
+		color 0 200 200
+	}
+	Sphere {
+		center +5.0 +5.0 -5.0
+		radius 5.0
+		color 155 0 0
+	}
+	Sphere {
+		center -5.0 +5.0 -5.0
+		radius 5.0
+		color 0 155 0
+	}
+	Sphere {
+		center -5.0 -5.0 -5.0
+		radius 5.0
+		color 0 0 155
+	}
+	Sphere {
+		center +5.0 -5.0 -5.0
+		radius 5.0
+		color 0 155 155
+	}
+}

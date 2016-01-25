@@ -1,0 +1,61 @@
+Camera {
+	position 20.0 20.0 20.0
+	focus 0.0 0.0 0.0
+	up 0.0 1.0 0.0
+}
+Perspective {
+        distance 5.0
+	fov 25.0
+	aspect 1.0
+}
+Background {
+	color 100 100 100
+}
+Group {
+	numObjects 9
+	Sphere {
+		center 0.0 0.0 0.0
+		radius 5.0
+		color 200 125 200
+	}
+	Sphere {
+		center +5.0 +5.0 +5.0
+		radius 5.0
+		color 255 0 0
+	}
+	Sphere {
+		center -5.0 +5.0 +5.0
+		radius 5.0
+		color 0 255 0
+	}
+	Sphere {
+		center -5.0 -5.0 +5.0
+		radius 5.0
+		color 0 0 255
+	}
+	Sphere {
+		center +5.0 -5.0 +5.0
+		radius 5.0
+		color 0 255 255
+	}
+	Sphere {
+		center +5.0 +5.0 -5.0
+		radius 5.0
+		color 155 0 0
+	}
+	Sphere {
+		center -5.0 +5.0 -5.0
+		radius 5.0
+		color 0 155 0
+	}
+	Sphere {
+		center -5.0 -5.0 -5.0
+		radius 5.0
+		color 0 0 155
+	}
+	Sphere {
+		center +5.0 -5.0 -5.0
+		radius 5.0
+		color 0 155 155
+	}
+}
