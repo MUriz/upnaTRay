@@ -22,20 +22,13 @@ public class Horn extends GlossyReflectance {
     public float reflectance(Point3D P, Vector3D normal, Vector3D v, Point3D L) {
         
         // Calcular el angulo entre el vector de de vista (v) y de reflexion especular ideal (r)
-        // r = 2*cos(theta)*n - I
-        // r = 2*(I dot n)*n - I
-        // Vector I = vector que parte de P y se dirige a L
-        // I = PL = L - P
+        // cos alphha = v dot r
+        // 2*(I dot n) * (v dot n) - (v dot I)
+        
         final Vector3D I = new Vector3D(P, L);
         I.normalize();
-        final Vector3D r = normal.getScaled(2*I.dotProduct(normal)).substract(I);
-        // Normalizamos r
-        r.normalize();
-        // Calculamos el angulo alpha
-        float alpha = r.dotProduct(v);
-        // La formula de Horn
-        // cos(alpha)^q
-        return (float) Math.pow(Math.cos(alpha), this.getQ());
+        final float cosAlpha = 2*(I.dotProduct(normal))*(v.dotProduct(normal)) - (v.dotProduct(I));
+        return (float) Math.pow(cosAlpha, this.getQ());
         
     }
     

@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import lights.Light;
 import lights.Lights;
 import lights.SpotLight;
+import materials.LafortuneWillemsMaterial;
 import materials.Material;
 import materials.PhongMaterial;
 import materials.PhongMaterial_esp;
@@ -20,6 +21,8 @@ import primitives.Object3D;
 import utils.Point3D;
 import primitives.Sphere;
 import primitives.Triangle;
+import reflectances.Blinn;
+import reflectances.GlossyReflectance;
 import reflectances.Horn;
 import utils.Vector3D;
 
@@ -345,48 +348,75 @@ public class Parser {
     
   }
   
+  public GlossyReflectance parseGlossyFunction() throws Exception {
+      
+      // Tipo
+      String line = in.readLine();
+      StringTokenizer s = new StringTokenizer(line);
+      String tipo = s.nextToken();
+      
+      // q
+      line = in.readLine();
+      s = new StringTokenizer(line);
+      s.nextToken();
+      float q = Float.parseFloat(s.nextToken());
+      // finalizar lectura
+      in.readLine();
+      switch(tipo) {
+          case "Horn":
+              return new Horn(q);
+          case "Blinn":
+              return new Blinn(q);
+      }
+      return null;
+      
+  }
+  
   public Material parseMaterial() throws Exception {
       
         String line = in.readLine();
         StringTokenizer s = new StringTokenizer(line);
 
         final String tipo = s.nextToken();
+        // ka
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        float ka = Float.parseFloat(s.nextToken());
+        // ks
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        float ks = Float.parseFloat(s.nextToken());
+        // kd
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        float kd = Float.parseFloat(s.nextToken());
+        // especular
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        int especular = Integer.parseInt(s.nextToken());
+        // Leer color
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        final int cx = Integer.parseInt(s.nextToken());
+        final int cy = Integer.parseInt(s.nextToken());
+        final int cz = Integer.parseInt(s.nextToken());
+        Color color = new Color(cx, cy, cz);
+        
+        // Funcion de reflectanncia
+        GlossyReflectance fs = parseGlossyFunction();
+        
+        // Finalizar lectura
+        in.readLine();
         switch (tipo) {
             case "Phong":
-                // ka
-                line = in.readLine();
-                s = new StringTokenizer(line);
-                s.nextToken();
-                float ka = Float.parseFloat(s.nextToken());
-                // ks
-                line = in.readLine();
-                s = new StringTokenizer(line);
-                s.nextToken();
-                float ks = Float.parseFloat(s.nextToken());
-                // kd
-                line = in.readLine();
-                s = new StringTokenizer(line);
-                s.nextToken();
-                float kd = Float.parseFloat(s.nextToken());
-                // especular
-                line = in.readLine();
-                s = new StringTokenizer(line);
-                s.nextToken();
-                int especular = Integer.parseInt(s.nextToken());
-                // Leer color
-                line = in.readLine();
-                s = new StringTokenizer(line);
-                s.nextToken();
-                final int cx = Integer.parseInt(s.nextToken());
-                final int cy = Integer.parseInt(s.nextToken());
-                final int cz = Integer.parseInt(s.nextToken());
-                
-                // Finalizar lectura
-                in.readLine();
-
-                Color color = new Color(cx, cy, cz);
-                Horn h = new Horn(2);
-                return new PhongMaterial_esp(ka, ks, kd, color, h, especular==1);
+                return new PhongMaterial_esp(ka, ks, kd, color, fs, especular==1);
+            case "LafortuneWillems":
+                return new LafortuneWillemsMaterial(ka, ks, kd, color, fs, fs.getQ(), especular==1);
         }
                 
       return null;

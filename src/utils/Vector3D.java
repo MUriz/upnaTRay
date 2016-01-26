@@ -67,6 +67,11 @@ public class Vector3D extends Tuple4f {
         return new Vector3D(this.getX() - v.getX(), this.getY() - v.getY(), this.getZ() - v.getZ());
     }
     
+    // Suma de 2 vectores
+    public Vector3D add(final Vector3D v) {
+        return new Vector3D(this.getX() + v.getX(), this.getY() + v.getY(), this.getZ() + v.getZ());
+    }
+    
     public Vector3D crossProduct(Vector3D v) {
         
         //"Construimos" un determinante

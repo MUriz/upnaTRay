@@ -52,7 +52,7 @@ public class Group extends Object3D {
     public boolean anyIntersection(Ray r, final Point3D P) {
         for (Object3D o : objects) {
             final Hit h = o.intersect(r, 0);
-            if (o.intersect(r, 0).hits() && !h.getPoint().equals(P)) {
+            if (h.hits() && !h.getPoint().equals(P)) {
                 return true;
             }
         }

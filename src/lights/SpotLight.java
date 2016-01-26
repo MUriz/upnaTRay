@@ -46,8 +46,8 @@ public class SpotLight extends Light{
             // Si chocamos con algo, devolvemos 0
             Ray r = new Ray(this.getLocation(), P);
             if (G.anyIntersection(r, P)) {
-                //return 0f;
-                return radiantIntensity*I.dotProduct(normal)/d_2;
+                return 0f;
+                //return radiantIntensity*I.dotProduct(normal)/d_2;
             } else {
                 return radiantIntensity*I.dotProduct(normal)/d_2;
             }

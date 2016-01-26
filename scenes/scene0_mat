@@ -16,50 +16,58 @@ Lights {
         Spot {
             pos 30.0 0.0 30.0
             view 0.0 0.0 0.0
-            power 200
-            angle 45
+            power 20
+            angle 180
         }
         Spot {
-            pos 0.0 40.0 0.0
+            pos 40.0 40.0 40.0
             view 0.0 0.0 0.0
-            power 100
+            power 4000
             angle 180
          }
 }
 Group {
-	numObjects 3
+	numObjects 1
 	Sphere {
 		center 0.0 0.0 0.0
 		radius 5.0
                 Phong {
                     ka 0.5
-                    ks 1.0
-                    kd 1.5
+                    ks 1000
+                    kd 1000
                     especular 1
                     color 200 125 200
+                    Horn {
+                        q 0.1
+                    }
                 }
 	}
         Sphere {
 		center 0.0 0.0 15.0
 		radius 5.0
                 Phong {
-                    ka 1
-                    ks 170
-                    kd 170
+                    ka 0.5
+                    ks 2000
+                    kd 300
                     especular 1
-                    color 5 5 5
+                    color 1 1 1
+                    Blinn {
+                        q 0.1
+                    }
                 }
 	}
         Sphere {
 		center 15.0 0.0 0.0
 		radius 5.0
-                Phong {
-                    ka 0.5
-                    ks 3
-                    kd 2.6
+                LafortuneWillems {
+                    ka 0.4
+                    ks 30
+                    kd 30
                     especular 1
                     color 200 0 0
+                    Blinn {
+                        q 10
+                    }
                 }
 	}
-        
 }
