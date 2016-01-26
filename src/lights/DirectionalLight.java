@@ -14,11 +14,11 @@ import utils.Vector3D;
  *
  * @author mikel.uriz
  */
-public class Directional extends Light {
+public class DirectionalLight extends Light {
     
     private final float irradiance;
 
-    public Directional(final Point3D location, final float power, final float s) {
+    public DirectionalLight(final Point3D location, final float power, final float s) {
         super(location, power);
         irradiance = power/s;
     }

@@ -43,11 +43,23 @@ public class Point3D extends Tuple4f {
         return new Vector3D(x0, y0, z0);
     }
     
+    /*public boolean equals(Point3D p) {
+        Vector3D a = p.substract(this);
+        float sum = a.getX() + a.getY() + a.getZ();
+        return (Math.abs(sum) < 0.01);
+    }*/
+    
     public boolean equals(Point3D p) {
-        return (p.getX() == this.getX()) &&
+        return ((Math.abs(p.getX() - this.getX()) < 0.01) && 
+                (Math.abs(p.getY() - this.getY()) < 0.01) &&
+                (Math.abs(p.getZ() - this.getZ()) < 0.01));
+    }
+    
+    /*public boolean equals(Point3D p) {
+        return ((p.getX() == this.getX()) &&
                 (p.getY() == this.getY()) &&
                 (p.getZ() == this.getZ()) &&
-                (p.getW() == this.getW());
-    }
+                (p.getW() == this.getW()));
+    }*/
     
 }

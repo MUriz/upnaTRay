@@ -21,22 +21,11 @@ import utils.Vector3D;
  */
 public class LafortuneWillemsMaterial extends Material {
     
-    private final float ka;
-    private final float ks;
-    private final float kd;
-    private final Color baseColor;
-    private final GlossyReflectance Fs;
-    private final boolean especular;
-    private final float q;
     
-    public LafortuneWillemsMaterial(final float ka, final float ks, final float kd, final Color baseColor, final GlossyReflectance Fs, final float q, final boolean especular) {
-        this.ka = ka;
-        this.ks = ks;
-        this.kd = kd;
-        this.Fs = Fs;
-        this.baseColor = baseColor;
-        this.q = q;
-        this.especular = especular;
+    public LafortuneWillemsMaterial(final float ka, final float ks, final float kd, final Color baseColor, final GlossyReflectance Fs, final boolean especular) {
+        
+        super(ka, ks, kd, baseColor, Fs, especular);
+
     }
 
     @Override
@@ -112,7 +101,7 @@ public class LafortuneWillemsMaterial extends Material {
     
     private Color ambientColor(final float ambientalIrradiance) {
         
-        return multColor(baseColor, ka*ambientalIrradiance);
+        return multColor(this.getBaseColor(), this.getKa()*ambientalIrradiance);
         //return new Color((int) (ka*baseColor.getRGB()*ambientalIrradiance));
         
     }
@@ -121,13 +110,13 @@ public class LafortuneWillemsMaterial extends Material {
         //(kd/PI+ks*((q+2)/(2*PI))*Fs
         final Vector3D PV = new Vector3D(P, V);
         PV.normalize();
-        float mult = (float) (kd*1/Math.PI + ks*((q+2)/(2*Math.PI))*Fs.reflectance(P, normal, PV, L.getLocation()));
+        float mult = (float) (this.getKd()/Math.PI + this.getKs()*((this.getFs().getQ()+2)/(2*Math.PI))*this.getFs().reflectance(P, normal, PV, L.getLocation()));
         //mult = (mult < 0) ? 0 : L.getIrradiance(G, P, normal)*mult;
         mult *= L.getIrradiance(G, P, normal);
         if (mult < 0) {
-            return multColor(baseColor, 0);
+            return multColor(this.getBaseColor(), 0);
         } else {
-            return multColor(baseColor, mult);
+            return multColor(this.getBaseColor(), mult);
         }
         
         
@@ -135,25 +124,6 @@ public class LafortuneWillemsMaterial extends Material {
         //return new Color((int) (baseColor.getRGB() * mult * L.getIrradiance(G, P, normal)));
         //Color retColor = addColors(kd, new Color((int) (ks.getRGB()*mult)));
         //return new Color((int) (retColor.getRGB()*L.getIrradiance()));
-    }
-    
-    private Color addColors(final Color c1, final Color c2) {
-        final int red = Math.min(255, c1.getRed() + c2.getRed());
-        final int green = Math.min(255, c1.getGreen() + c2.getGreen());
-        final int blue = Math.min(255, c1.getBlue() + c2.getBlue());
-        return new Color(red, green, blue);
-        //return new Color(c1.getRGB() + c2.getRGB());
-    }
-    
-    private Color multColor(final Color c, final float f) {
-        int red = Math.min(255, (int)(c.getRed()*f));
-        int green = Math.min(255, (int)(c.getGreen()*f));
-        int blue = Math.min(255, (int)(c.getBlue()*f));
-        return new Color(red, green, blue);
-    }
-    
-    private boolean isEspecular() {
-        return this.especular;
     }
     
 }

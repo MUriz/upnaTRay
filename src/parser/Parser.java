@@ -3,13 +3,13 @@ package parser;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.util.StringTokenizer;
+import lights.DirectionalLight;
 import lights.Light;
 import lights.Lights;
 import lights.SpotLight;
 import materials.LafortuneWillemsMaterial;
 import materials.Material;
 import materials.PhongMaterial;
-import materials.PhongMaterial_esp;
 
 import projection.Projection;
 import projection.Ortographic;
@@ -306,7 +306,7 @@ public class Parser {
         Point3D C = new Point3D(x, y, z);
         
         // Leer color
-        line = in.readLine();
+        /*line = in.readLine();
         s = new StringTokenizer(line);
         s.nextToken();
         final int cx = Integer.parseInt(s.nextToken());
@@ -316,7 +316,9 @@ public class Parser {
         Color color = new Color(cx, cy, cz);
         
         Horn horn = new Horn(3);
-        PhongMaterial mat = new PhongMaterial(0.5f, 0.3f, 0.2f, color, horn);
+        PhongMaterial mat = new PhongMaterial(0.5f, 0.3f, 0.2f, color, horn, false);*/
+        // Leer material
+        Material mat = parseMaterial();
         
         // Finalizar lectura
         line = in.readLine();
@@ -414,22 +416,26 @@ public class Parser {
         in.readLine();
         switch (tipo) {
             case "Phong":
-                return new PhongMaterial_esp(ka, ks, kd, color, fs, especular==1);
+                return new PhongMaterial(ka, ks, kd, color, fs, especular==1);
             case "LafortuneWillems":
-                return new LafortuneWillemsMaterial(ka, ks, kd, color, fs, fs.getQ(), especular==1);
+                return new LafortuneWillemsMaterial(ka, ks, kd, color, fs, especular==1);
         }
                 
       return null;
+ 
   }
   
   
   public Light parseLight() throws Exception {
       
+      //tipo
       String line = in.readLine();
+      StringTokenizer s = new StringTokenizer(line);
+      String tipo = s.nextToken();
       
       // Posicion
       line = in.readLine();
-      StringTokenizer s = new StringTokenizer(line);
+      s = new StringTokenizer(line);
       s.nextToken();
       Point3D pos = new Point3D(Float.parseFloat(s.nextToken()), Float.parseFloat(s.nextToken()), Float.parseFloat(s.nextToken()));
       
@@ -443,13 +449,23 @@ public class Parser {
       s = new StringTokenizer(line);
       s.nextToken();
       float power = Float.parseFloat(s.nextToken());
-      // Angulo en grados
+      // Angulo en grados (Spot) o area (Direccional)
       line = in.readLine();
       s = new StringTokenizer(line);
       s.nextToken();
-      float angle = Float.parseFloat(s.nextToken());
-      in.readLine();
-      return new SpotLight(pos, power, view, (float) Math.toRadians(angle));
+      switch (tipo) {
+        case "Spot":
+            float angle = Float.parseFloat(s.nextToken());
+            in.readLine();
+            return new SpotLight(pos, power, view, (float) Math.toRadians(angle));
+        case "Directional":
+            float s_area = Float.parseFloat(s.nextToken());
+            in.readLine();
+            return new DirectionalLight(pos, power, s_area);
+      }
+      
+      return null;
+      
   }
   
     public Lights parseLights() throws Exception {
