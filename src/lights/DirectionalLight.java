@@ -7,6 +7,7 @@ package lights;
 
 import primitives.Group;
 import primitives.Plane;
+import ray_tracer.Hit;
 import ray_tracer.Ray;
 import utils.Point3D;
 import utils.Vector3D;
@@ -46,7 +47,8 @@ public class DirectionalLight extends Light {
         // Rayo que parte de aqui en direccion dir
         final Ray r_p = new Ray(this.getLocation(), this.getDir());
         // Interseccion
-        final Point3D intersectionPoint = plane.intersect(r_p, 0).getPoint();
+        final Hit hit = plane.intersect(r_p, 0);
+        final Point3D intersectionPoint = hit.getPoint();
         // Calculamos la distancia como la longitud del vector que une los puntos del plano
         final float distance = (new Vector3D(P, intersectionPoint)).getNorm();
         // Si la distancia es mayor que el radio, esta fuera del campo de iluminacion
@@ -55,8 +57,15 @@ public class DirectionalLight extends Light {
         } else {
             // El punto puede llegar a ser iluminado
             // Lanzamos un rayo desde la fuente hacia el punto
+            // Pero el punto desde donde tenemos que lanzar sera el que llegue a P,
+            // con direccion dir
+            // P = R + t*dir
+            // P ya tenemos, queremos calcular R
+            // R = P - t*dir
+            // R = P + t*dir_ops
+            final Point3D R = P.add(this.getDir().getOposite().multiply(hit.getT()));
             // Si chocamos con algo, devolvemos 0
-            final Ray r = new Ray(this.getLocation(), P);
+            final Ray r = new Ray(R, this.getDir());
             if (G.anyIntersection(r, P)) {
                 return 0f;
                 //return irradiance*I.dotProduct(normal)/d_2;
