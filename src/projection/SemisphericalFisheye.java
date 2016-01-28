@@ -16,9 +16,9 @@ import utils.Vector3D;
  */
 public class SemisphericalFisheye extends Projection {
     
-    public static class AngularFisheyeRayGenerator extends RayGenerator {
+    public static class SemisphericalFisheyeRayGenerator extends RayGenerator {
         
-        public AngularFisheyeRayGenerator(final Camera camera, final int W, final int H) {
+        public SemisphericalFisheyeRayGenerator(final Camera camera, final int W, final int H) {
             super(camera, W, H);
         }
 
@@ -51,7 +51,7 @@ public class SemisphericalFisheye extends Projection {
     @Override
     public RayGenerator getRayGenerator(Camera camera, int W, int H) {
         
-        return new AngularFisheyeRayGenerator(camera, W, H);
+        return new SemisphericalFisheyeRayGenerator(camera, W, H);
         
     }
     

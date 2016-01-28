@@ -29,20 +29,16 @@ public class Plane extends Object3D {
 
     @Override
     public Hit intersect(Ray r, float tmin) {
-        //Como en triangulos
-        float c = r.getV().dotProduct(normal);
-        if (c < 0) {
-            //Calculamos el punto de interseccion
-            final Vector3D P1P0 = new Vector3D(r.getR(), point);
-            final float t = (P1P0.dotProduct(normal))/(r.getV().dotProduct(normal));
-            if (t < tmin) {
-                return Hit.getVoidHit();
-            } else {
-                return new Hit(t, r.pointAtParameter(t), normal, this.getMaterial());
-            }
-        } else {
+       
+        //Calculamos el punto de interseccion
+        final Vector3D P1P0 = new Vector3D(r.getR(), point);
+        final float t = (P1P0.dotProduct(normal))/(r.getV().dotProduct(normal));
+        if (t < tmin) {
             return Hit.getVoidHit();
+        } else {
+            return new Hit(t, r.pointAtParameter(t), normal, this.getMaterial());
         }
+        
         
     }
     

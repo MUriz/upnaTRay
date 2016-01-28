@@ -18,6 +18,7 @@ import projection.SemisphericalFisheye;
 import projection.Camera;
 import primitives.Group;
 import primitives.Object3D;
+import primitives.Plane;
 import utils.Point3D;
 import primitives.Sphere;
 import primitives.Triangle;
@@ -325,6 +326,34 @@ public class Parser {
         
         return new Triangle(A, B, C, mat);
       }
+      case "Plane":
+          // Leer el punto
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        float x = Float.parseFloat(s.nextToken());
+        float y = Float.parseFloat(s.nextToken());
+        float z = Float.parseFloat(s.nextToken());
+        
+        Point3D P = new Point3D(x, y, z);
+        
+        // Leer la normal
+        line = in.readLine();
+        s = new StringTokenizer(line);
+        s.nextToken();
+        x = Float.parseFloat(s.nextToken());
+        y = Float.parseFloat(s.nextToken());
+        z = Float.parseFloat(s.nextToken());
+        
+        Vector3D normal = new Vector3D(x, y, z);
+        normal.normalize();
+        // Leer material
+        Material mat = parseMaterial();
+        
+        // Finalizar lectura
+        line = in.readLine();
+        return new Plane(mat, P, normal);
+        
       case "Group":
       {
         // Leer número de elementos
@@ -461,7 +490,7 @@ public class Parser {
         case "Directional":
             float s_area = Float.parseFloat(s.nextToken());
             in.readLine();
-            return new DirectionalLight(pos, power, s_area);
+            return new DirectionalLight(pos, power, s_area, view);
       }
       
       return null;

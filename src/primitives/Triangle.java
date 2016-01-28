@@ -5,7 +5,6 @@
  */
 package primitives;
 
-import java.awt.Color;
 import materials.Material;
 import ray_tracer.Hit;
 import ray_tracer.Ray;
@@ -86,6 +85,23 @@ public class Triangle extends Object3D{
         //Obtenemos una matriz de 1 columna y 3 filas
         //donde el primer elemento es beta, segundo gamma y tercero alpha
         return m.mulCol(res);
+        
+    }
+    
+    // Para resolver el sistema de ecuaciones usado la tecnica del producto mixto
+    private Vector3D solve(final Vector3D AB, final Vector3D AC, final Vector3D v, final Vector3D AR) {
+        
+        // Todos los elementos se dividen por este facor
+        final float factor = v.dotProduct(AC.crossProduct(AB));
+        // El valor alpha
+        final float a = AR.dotProduct(AB.crossProduct(AC))/factor;
+        // El valor Beta
+        final float b = AC.dotProduct(v.getOposite().crossProduct(AR))/factor;
+        // El valor Gamma
+        final float c = AB.dotProduct(v.crossProduct(AR))/factor;
+        // El orden de devolucion tiene que ser (Beta, Gamma, Alpha) para que 
+        // sea consistente con los otros metodos
+        return new Vector3D(b, c, a);
         
     }
     

@@ -30,7 +30,9 @@ public class PhongMaterial extends Material {
     @Override
     public Color getColor(Group G, Lights lights, Point3D P, Vector3D normal, Point3D V) {
         
-        Color c = this.ambientColor(lights.getAmbientalIrradiance());
+        return getColor(G, lights, P, normal, V, 5);
+        
+        /*Color c = this.ambientColor(lights.getAmbientalIrradiance());
         
         for(Light L : lights.getLights()) {
             c = addColors(c, this.directShader(G, P, normal, V, L));
@@ -58,7 +60,7 @@ public class PhongMaterial extends Material {
             
         }
         
-        return c;
+        return c;*/
         
     }
     

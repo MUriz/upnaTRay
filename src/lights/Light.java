@@ -17,10 +17,13 @@ public abstract class Light {
     
     private final Point3D location;
     private final float power;
+    private final Vector3D dir;
     
-    public Light(final Point3D location, final float power) {
+    public Light(final Point3D location, final float power, final Point3D pointView) {
         this.location = location;
         this.power = power;
+        this.dir = new Vector3D(location, pointView);
+        this.dir.normalize();
     }
     
     public Point3D getLocation() {
@@ -29,6 +32,10 @@ public abstract class Light {
     
     public float getPower() {
         return this.power;
+    }
+    
+    public Vector3D getDir() {
+        return this.dir;
     }
     
     public abstract float getIrradiance(final Group G, final Point3D P, final Vector3D normal);
