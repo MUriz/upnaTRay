@@ -5,7 +5,6 @@
  */
 package primitives;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import ray_tracer.Hit;
 import ray_tracer.Ray;

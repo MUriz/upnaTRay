@@ -15,12 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import lights.Lights;
-import lights.SpotLight;
 import parser.Parser;
 import primitives.Group;
 import projection.Camera;
 import projection.Projection;
-import utils.Point3D;
 
 /**
  *

@@ -22,7 +22,7 @@ public class SpotLight extends Light{
     public SpotLight(final Point3D location, final float power, final Point3D viewPoint, final float angle) {
         
         super(location, power, viewPoint);
-        radiantIntensity = (float) (this.getPower()/(2*Math.PI*(1-Math.cos(angle))));
+        radiantIntensity = (float) (power/(2*Math.PI*(1-Math.cos(angle))));
         this.angle = angle;
      
     }
