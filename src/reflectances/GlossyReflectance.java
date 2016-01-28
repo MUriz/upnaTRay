@@ -10,7 +10,7 @@ import utils.Vector3D;
 
 /**
  *
- * @author txumauriz
+ * @author mikel.uriz
  */
 public abstract class GlossyReflectance {
     

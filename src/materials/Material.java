@@ -16,7 +16,7 @@ import utils.Vector3D;
 
 /**
  *
- * @author txumauriz
+ * @author mikel.uriz
  */
 public abstract class Material {
     
@@ -41,7 +41,6 @@ public abstract class Material {
         final int green = Math.min(255, c1.getGreen() + c2.getGreen());
         final int blue = Math.min(255, c1.getBlue() + c2.getBlue());
         return new Color(red, green, blue);
-        //return new Color(c1.getRGB() + c2.getRGB());
     }
     
     protected Color multColor(final Color c, final float f) {

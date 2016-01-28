@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author txumauriz
+ * @author mikel.uriz
  */
 public class Lights {
     

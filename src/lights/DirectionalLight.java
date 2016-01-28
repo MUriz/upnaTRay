@@ -68,7 +68,6 @@ public class DirectionalLight extends Light {
             final Ray r = new Ray(R, this.getDir());
             if (G.anyIntersection(r, P)) {
                 return 0f;
-                //return irradiance*I.dotProduct(normal)/d_2;
             } else {
                 final Vector3D I = new Vector3D(P, this.getLocation());
                 I.normalize();
